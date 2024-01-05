@@ -1,24 +1,25 @@
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Main {
-    static int[] arr;
-    static long sum = 0;
+    static int[] server;
     static long half = 0;
 
-    static int lowerBound(int n) {
-        int start = 0, end = arr[arr.length - 1], mid = 0;
+    static int lowerBound() {
+        int start = 0, end = server[server.length - 1], mid = 0;
         long tmpSum = 0;
 
         while (start < end) {
             mid = (start + end) / 2;
 
-            for (int i = 0; i < arr.length; i++) {
-                if (arr[i] >= mid)
+            for (int i = 0; i < server.length; i++) {
+                if (server[i] >= mid)
                     tmpSum += mid;
                 else
-                    tmpSum += arr[i];
+                    tmpSum += server[i];
             }
 
             if (tmpSum >= half)
@@ -32,24 +33,28 @@ public class Main {
         return end;
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        scanner.nextLine(); // consume the newline
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        arr = new int[n * n];
+        int N = Integer.parseInt(br.readLine());
+        long sum = 0;
+        server = new int[N * N];
 
-        for (int i = 0; i < n * n; i++) {
-            int num = scanner.nextInt();
-            arr[i] = num;
-            sum += num;
+        int index = 0;
+        for (int i = 0; i < N; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < N; j++) {
+                int tmp =  Integer.parseInt(st.nextToken());
+                sum += tmp;
+                server[index++] = tmp;
+            }
         }
+
 
         half = Math.round(sum / 2.0);
 
-        Arrays.sort(arr);
+        Arrays.sort(server);
 
-        System.out.println(lowerBound(n));
+        System.out.println(lowerBound());
     }
 }
-
