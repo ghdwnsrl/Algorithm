@@ -1,0 +1,25 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        String S = br.readLine();
+        Set<String> set = new HashSet<>();
+        
+        for (int i = 1; i <= S.length(); i++) { // 분할할 단어의 크기,
+            for (int j = 0 ; j + i <= S.length(); j++) { // 분할한 단어의 크기만큼 1씩 이동
+                set.add(S.substring(j,j+i));
+            }
+        }
+
+
+        System.out.println(set.size());
+
+    }
+}
