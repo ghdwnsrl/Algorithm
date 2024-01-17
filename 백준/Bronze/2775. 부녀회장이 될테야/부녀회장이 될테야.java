@@ -15,12 +15,10 @@ public class Main {
 
         for (int i = 1; i < 15 ; i++) {
             for (int j = 1; j < 15; j++) {
-                for (int k = 1; k <= j ; k++) {
-                    home[i][j] += home[i-1][k];
-                }
+                    home[i][j] = home[i][j-1] + home[i-1][j];
             }
         }
-        
+
         for (int i = 0; i < T; i++) {
             int K = Integer.parseInt(br.readLine());
             int N = Integer.parseInt(br.readLine());
