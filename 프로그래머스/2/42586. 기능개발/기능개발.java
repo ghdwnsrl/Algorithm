@@ -5,12 +5,8 @@ class Solution {
         int[] answer = {};
         int[] days = new int[progresses.length];
         for (int i = 0; i < progresses.length; i++) {
-            int count = 0;
-            while(progresses[i] < 100) {
-                progresses[i] += speeds[i];
-                count++;
-            }
-            days[i] = count;
+            int day = 0;
+            days[i] = (int) Math.ceil((100.0 - progresses[i]) / speeds[i]);
         }
         Queue<Integer> queue = new LinkedList<>();
         List<Integer> list = new ArrayList<>();
