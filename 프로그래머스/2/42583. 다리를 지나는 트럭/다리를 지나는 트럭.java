@@ -2,33 +2,27 @@ import java.util.*;
 
 class Solution {
     public int solution(int bridge_length, int weight, int[] truck_weights) {
-         Queue<Integer> queue = new LinkedList<>();
+        Queue<Integer> queue = new LinkedList<>();
         int total_weight = 0;
         int answer = 0;
+        int truckIdx = 0;
 
-        for (int truck : truck_weights) {
-            while (true) {
-                // queue가 비었으면 일단 넣기
-                if (queue.isEmpty()) {
-                    total_weight += truck;
-                    queue.offer(truck);
-                    answer++;
-                    break;
-                } else if (queue.size() == bridge_length) { // 길이가 긴 트럭을 빼줘야함
-                    total_weight -= queue.poll();
-                } else {
-                    // 트럭을 더 추가할 수 없는 경우
-                    if (total_weight + truck > weight) {
-                        queue.offer(0);
-                        answer++;
-                    } else {
-                        queue.offer(truck);
-                        total_weight += truck;
-                        answer++;
-                        break;
-                    }
-                }
+        for (int i = 0; i < bridge_length; i++) {
+            queue.offer(0);
+        }
+
+        while (truckIdx < truck_weights.length) {
+            answer++;
+            total_weight -= queue.poll();
+            if ( weight >= total_weight + truck_weights[truckIdx]) {
+                // 트럭이 지나갈 수 있다!
+                queue.offer(truck_weights[truckIdx]);
+                total_weight += truck_weights[truckIdx];
+                truckIdx++;
+            } else { // 지나갈 수 없다!
+                queue.offer(0);
             }
+    
         }
         return answer + bridge_length;
     }
